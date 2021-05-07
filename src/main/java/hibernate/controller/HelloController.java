@@ -18,41 +18,46 @@ public class HelloController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/admin")
     public String printUsers(ModelMap model) {
         model.addAttribute("users", userService.listUsers());
-        return "index";
+        return "admin/admin";
     }
 
-    @GetMapping("/user-create")
+    @GetMapping("admin/user-create")
     public String createUserForm(User user) {
-        return "user-create";
+        return "admin/user-create";
     }
 
-    @PostMapping("user-create")
+    @PostMapping("admin/user-create")
     public String createUser(User user) {
         userService.add(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
-    @GetMapping("user-delete/{id}")
+    @GetMapping("admin/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.remove(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 
-    @GetMapping("/user-update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, ModelMap model){
+    @GetMapping("admin/user-update/{id}")
+    public String updateUserForm(@PathVariable("id") Long id, ModelMap model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "/user-update";
+        return "admin/user-update";
     }
 
     @PostMapping("/user-update/{id}")
-    public String updateUser(@PathVariable("id") Long id,  User user){
-        userService.update(user,id);
-        return "redirect:/";
+    public String updateUser(@PathVariable("id") Long id, User user) {
+        userService.update(user, id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
     }
 
 }

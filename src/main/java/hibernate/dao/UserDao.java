@@ -1,8 +1,5 @@
 package hibernate.dao;
-
 import hibernate.model.User;
-
-
 import java.util.List;
 
 public interface UserDao{
@@ -11,5 +8,8 @@ public interface UserDao{
     void update(User user,Long id);
     List<User> listUsers();
     User findById(Long id);
+    User getUserByName(String name);
+
+
 
 }
